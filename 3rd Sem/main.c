@@ -1,20 +1,16 @@
 #include<stdio.h>
 #include<stdlib.h>
+#pragma pack(1)
 
-//Write a program to print fibonacci series upto n terms.
 int main(){
-    int n, a=0, b=1, c;
-    printf("Enter the number of terms: ");
-    scanf("%d", &n);
-    printf("Fibonacci series: ");
-    printf("%d %d", a, b);
-    for(int i=0; i<n-2; i++){
-        c = a+b;
-        printf(" %d", c);
-        a = b;
-        b = c;
-    }
+    struct emploee{
+        int empid[5];
+        int salary;
+        struct emploee *s;
+    }emp;
+    printf("%d %d %d", sizeof(struct emploee), sizeof(emp.empid), sizeof(int));
 
+    return 0;
 
 }
 
