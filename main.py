@@ -1,11 +1,6 @@
-if __name__ == '__main__':
-    n = int(input())
-    arr = map(int, input().split())
-    arr = list(arr)
-    
-    arr.sort(reverse = True)
-    for i in range(1, len(arr)):
-        if arr[0] != arr[i]:
-            print(arr[i])
-            break
-    
+import math
+if __name__ == "__main__":
+    s1 = int(input())
+    s2 = int(input())
+    C = int(math.degrees(math.atan2(s1, s2)))
+    print(90-C,chr(176), sep = '')
