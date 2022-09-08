@@ -10,7 +10,9 @@
         "string.h": "c",
         "iostream": "cpp",
         "cmath": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "typeinfo": "cpp",
+        "STRING.H": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
