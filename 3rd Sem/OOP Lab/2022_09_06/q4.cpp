@@ -10,7 +10,6 @@ class xyz{
     public:
     xyz(){
         length = 0;
-        str = new char[length +1];
     }
     xyz (char* ptr){
         length = strlen(ptr);
@@ -21,12 +20,12 @@ class xyz{
     void concat(xyz &x1, xyz &x2){
         length = x1.length + x2.length;
         str = new char[length];
-        strcat(str, x1.str);
+        strcpy(str, x1.str);
+        strcat(str, " ");
         strcat(str, x2.str);
     }
 
     void display(){
-        // puts(str);
         cout<<str;
     }
 };
