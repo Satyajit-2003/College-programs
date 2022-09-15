@@ -12,7 +12,8 @@
         "cmath": "cpp",
         "sstream": "cpp",
         "typeinfo": "cpp",
-        "STRING.H": "cpp"
+        "STRING.H": "cpp",
+        "random": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

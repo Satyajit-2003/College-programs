@@ -1,23 +1,11 @@
-#include<iostream>
-using namespace std;
+# include<iostream>
+using std;
+void fun(int *x, int *y)
+x=y; *y=3; *x=4;
+int main()
+int , b=2;
+fun(&a, &b);
+cout<<a+b;
+retum 0;
 
-class xyz{
-    static int count;
-    public:
-    xyz(){
-        count ++;
-        cout<<count<<" Object created"<<endl;
-    }
-    ~xyz(){
-        cout<<count<<" object destroyed"<<endl;
-        count --;
-    }
-};
-int xyz :: count;
 
-int main(){
-    {
-    xyz x1, x2;
-    }
-    xyz x3;
-}

@@ -15,8 +15,6 @@ class Student{
     friend int above_average(Student *,int, float);
     friend int below_average(Student *,int, float);
     friend void sort(Student *, int );
-    friend void highest_name(Student *, int);
-    friend void lowest_roll(Student *, int);
 };
 
 float average(Student* st_list, int n){

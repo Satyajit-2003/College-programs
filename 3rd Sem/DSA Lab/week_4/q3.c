@@ -142,7 +142,7 @@ void dlt_by_data(node **head, int data){
 int main(){
     srand(time(0));
     node* head = create(10);
-    printf("Linked list created of length 10");
+    printf("Linked list created of length 10\n");
     int res, temp;
     while (1){
         printf("Enter your choice: ");
@@ -152,39 +152,37 @@ int main(){
         }else if (res == 2){
             display_rev(head);
             printf("\n");
+        }else if (res == 3){
+            if (check_if_empty(head))
+                printf("List is empty\n");
+            else
+                printf("List is not empty\n");
         }else if (res == 4){
-            int temp;
             printf("Enter index: ");
             scanf("%d", &temp);
             insert_node(&head, temp);
         }else if(res == 5){
-            int temp;
             printf("Enter index: ");
             scanf("%d", &temp);
             dlt_by_index(&head, temp);  
-        }
-        else if(res == 6){
-            int temp;
+        }else if(res == 6){
             printf("Enter data: ");
             scanf("%d", &temp);
             dlt_by_data(&head, temp);
         }else if(res == 7){
-            printf("No of nodes: %d\n");
-            
+            printf("No of nodes: %d\n", no_of_node(head));            
+        }else if(res == 8){
+            printf("Enter element to search: ");
+            scanf("%d", &temp);
+            res = search(head, temp);
+            if (res!= -1)
+                printf("Element found at position %d\n", res);
+            else   
+                printf("Element not found\n");
         }
-
+        else
+            break;
     }
-    display(head);
-    printf("%d \n", search(head, 8));
-    dlt_by_index(&head, 0);
-    display(head);
-    dlt_by_index(&head, 9);
-    display(head);
-    dlt_by_index(&head, 7);
-    display(head);
-    dlt_by_data(&head, 8);
-    display(head);
-    printf("%d\n", no_of_node(head));
 
     return 0;
 }
