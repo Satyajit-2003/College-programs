@@ -34,12 +34,12 @@ class test: public Student{
 };
 
 class mark_perc: public test{
-    int mark, percent;
+    int _tot, percent;
     public:
     void calc_mark(){
-        mark = marks[0] + marks[1] + marks[2] + marks[3] + marks[4];
-        percent = mark/5;
-        cout<<"Total marks: "<<mark<<endl;
+        _tot = marks[0] + marks[1] + marks[2] + marks[3] + marks[4];
+        percent = _tot/5;
+        cout<<"Total marks: "<<_tot<<endl;
         cout<<"Percentage: "<<percent<<endl;
     }
 };
