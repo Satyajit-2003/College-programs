@@ -13,7 +13,18 @@
         "sstream": "cpp",
         "typeinfo": "cpp",
         "STRING.H": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "array": "c",
+        "deque": "c",
+        "string": "c",
+        "vector": "c",
+        "string_view": "c",
+        "istream": "c",
+        "compare": "c",
+        "algorithm": "c",
+        "functional": "c",
+        "bit": "c",
+        "chrono": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

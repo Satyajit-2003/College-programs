@@ -3,10 +3,10 @@
 
 #include<stdio.h>
 
-int count =1, sum =0, n;
+int count =1, sum =0, size;
 
 void sum_upto(){
-    if (count<n+1)
+    if (count<size+1)
     {
         sum+= count;
         count++;
@@ -19,7 +19,7 @@ void sum_upto(){
 int main()
 {
     printf("Input n: ");
-    scanf("%d", &n);
+    scanf("%d", &size);
     sum_upto();
     printf("The sum is: %d", sum);
     return 0;
