@@ -100,9 +100,9 @@ void print_using_recursion(node* next){
 
 void print_reverse_using_recursion(node* next){
         if (!next->address){
-        printf("%d", next->data);
-        return;
-    }
+            printf("%d", next->data);
+            return;
+        }
     print_reverse_using_recursion(next->address);
     printf("%d-> ",next->data);
 }
