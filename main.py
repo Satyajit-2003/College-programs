@@ -1,6 +1,13 @@
-import pywhatkit
+total = int(input(("Enter total classes: ")))
+abs = int(input("Enter number of absent: "))
+temp = abs
 
-file  = open(r".\main.py", 'r')
-text = file.read()
+perc = (abs/total) *100
 
-pywhatkit.text_to_handwriting(text, save_to='text.png')
+while perc <= 25:
+    abs = abs +1
+    total = total +1
+    perc = (abs/total) *100
+
+print("You can be absent in", abs-temp,'more classes')
+

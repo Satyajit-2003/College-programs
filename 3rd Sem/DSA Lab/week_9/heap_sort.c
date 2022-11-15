@@ -31,13 +31,11 @@ void max_heapify(int i)
         swap(&array[i], &array[largest]);
         max_heapify(largest);
     }
-    // printf("exe ");
 }
 
 void create_max_heap(int length){
     for (int i = (array[0])/2; i >=1; i--)
         max_heapify(i);
-    // printf("exe ");
 }
 
 void heap_sort(int length){
@@ -47,7 +45,6 @@ void heap_sort(int length){
         array[0]--;
         max_heapify(1);
     }
-    // printf("exe ");
 }
 
 int run(int length){
