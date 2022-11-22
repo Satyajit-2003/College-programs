@@ -1,26 +1,17 @@
-#include <iostream>
+#include<iostream>
+#include<fstream>
 using namespace std;
 
-class Test{
-	int * p;
-	public:
-	Test(int *k){
-		p = new int(*k);
-	}
-	Test(){
-		p = new int(1);
-	}
-
-	void Show(){
-		cout<<*p;
-	}
-};
-
 int main(){
-	static int i;
-	Test t1, t2(&i);
-	t1.Show();
-	t2.Show();
-	
-	return 0;
+    char ch;
+    ifstream fin("a.txt");
+    ofstream fout("b.txt");
+    while (fin){
+        fin.get(ch);
+        fout<<ch;
+    }
+    fin.close();
+    fout.close();
+
+    return 0;
 }
