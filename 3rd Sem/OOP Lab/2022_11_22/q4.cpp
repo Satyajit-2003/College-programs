@@ -12,8 +12,6 @@ int main(){
     }
 
     try{
-
-        
         cout<<"Enter index of array: ";
         cin>>res;
         if (res >= length)
