@@ -1,17 +1,40 @@
 #include<iostream>
-#include<fstream>
 using namespace std;
 
-int main(){
-    char ch;
-    ifstream fin("a.txt");
-    ofstream fout("b.txt");
-    while (fin){
-        fin.get(ch);
-        fout<<ch;
+class Base
+{
+public:
+    void display()
+    {
+        cout <<"Display Base";
     }
-    fin.close();
-    fout.close();
-
+    virtual void show()
+    {
+        cout <<"Show Base";
+    }
+};
+class Derived : public Base
+{
+public:
+    void display()
+    {
+        cout <<"Display Derived";
+    }
+    void show()
+    {
+        cout <<"Show Derived";
+    }
+};
+int main()
+{
+    Base b;
+    Derived d;
+    Base *bptr;
+    bptr = &b;
+    bptr->display();
+    bptr->show();
+    bptr = &d;
+    bptr->display();
+    bptr->show();
     return 0;
 }
