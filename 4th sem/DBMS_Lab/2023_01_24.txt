@@ -1,0 +1,10 @@
+SQL> desc stud;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                    NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(10)
+ SECTION                                            VARCHAR2(5)
+ CGPA                                               NUMBER(3,1)
+ GENDER                                             CHAR(1)
+
+SQL> spool D:\a.txt
