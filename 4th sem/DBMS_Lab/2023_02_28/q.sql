@@ -1,0 +1,68 @@
+/*1.	Create the following table and insert the specified records.
+PID	PNAME	PRICE	QTY
+101	SOAP	32	2
+102	RICE	42	7
+103	RICE	45	9
+104	PASTE	33	5
+105	MILK	25	3
+106	RICE	43	2
+107	OIL	78	7
+108	PASTE	32	5
+109	RICE	41	4
+110	SOAP	31	3
+. 
+2. Count the number of products for each product name.
+3. Display the total number of quantities for each product.
+4. Find the Maximum count by price and quantity. (GROUP BY two columns)
+5. Display average product quantity by product name, but do not include products with average price less than Rs.30.
+6. Create a new user XYZ and grant only SELECT privilege to the user on a table.
+7. Ask the user XYZ with the SELECT privilege to view your table data. 
+8. COMMIT your transaction and ask the same user to view the table again.
+*/
+
+DROP TABLE PRODUCT_02_28 CASCADE CONSTRAINTS;
+
+--Q1
+CREATE TABLE PRODUCT_02_28(
+PID NUMBER(3),
+PNAME VARCHAR2(10),
+PRICE NUMBER(3),
+QTY NUMBER(3)
+);
+
+INSERT INTO PRODUCT_02_28 VALUES(101,'SOAP',32,2);
+INSERT INTO PRODUCT_02_28 VALUES(102,'RICE',42,7);
+INSERT INTO PRODUCT_02_28 VALUES(103,'RICE',45,9);
+INSERT INTO PRODUCT_02_28 VALUES(104,'PASTE',33,5);
+INSERT INTO PRODUCT_02_28 VALUES(105,'MILK',25,3);
+INSERT INTO PRODUCT_02_28 VALUES(106,'RICE',43,2);
+INSERT INTO PRODUCT_02_28 VALUES(107,'OIL',78,7);
+INSERT INTO PRODUCT_02_28 VALUES(108,'PASTE',32,5);
+INSERT INTO PRODUCT_02_28 VALUES(109,'RICE',41,4);
+INSERT INTO PRODUCT_02_28 VALUES(110,'SOAP',31,3);
+
+--Q2
+SELECT PNAME,COUNT(PNAME) FROM PRODUCT_02_28 GROUP BY PNAME;
+
+--Q3
+SELECT PNAME,SUM(QTY) FROM PRODUCT_02_28 GROUP BY PNAME;
+
+--Q4
+SELECT MAX(PRICE),MAX(QTY) FROM PRODUCT_02_28
+GROUP BY price, qty;
+
+--Q5
+SELECT pname, AVG(QTY) FROM PRODUCT_02_28 
+GROUP BY PNAME
+having AVG(PRICE)>30;
+
+--Q6
+CREATE USER XYZ IDENTIFIED BY XYZ;
+GRANT SELECT ON PRODUCT_02_28 TO XYZ;
+
+--Q7
+SELECT * FROM PRODUCT_02_28;
+
+--Q8
+COMMIT;
+SELECT * FROM PRODUCT_02_28;

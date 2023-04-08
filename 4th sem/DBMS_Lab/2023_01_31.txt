@@ -1,0 +1,52 @@
+SQL> CREATE TABLE a1(
+  2  c1 int,
+  3  c2 varchar(10),
+  4  c3 int);
+
+Table created.
+
+SQL> ALTER TABLE a1 ADD c4 char(5);
+
+Table altered.
+
+SQL> ALTER TABLE a1 DROP COLUMN c3;
+
+Table altered.
+
+SQL> ALTER TABLE a1 RENAME c4 to c3;
+ALTER TABLE a1 RENAME c4 to c3
+                      *
+ERROR at line 1:
+ORA-14155: missing PARTITION or SUBPARTITION keyword 
+
+
+SQL> desc a1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ C1                                                 NUMBER(38)
+ C2                                                 VARCHAR2(10)
+ C4                                                 CHAR(5)
+
+SQL> ALTER TABLE a1 RENAME COLUMN c4 to c3;
+
+Table altered.
+
+SQL> ALTER TABLE a1 to a2;
+ALTER TABLE a1 to a2
+               *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> ALTER TABLE a1 rename to a2;
+
+Table altered.
+
+SQL> desc a2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ C1                                                 NUMBER(38)
+ C2                                                 VARCHAR2(10)
+ C3                                                 CHAR(5)
+
+SQL> spool off

@@ -1,0 +1,270 @@
+SQL> CREATE TABLE empl (
+  2      Emp_ID NUMBER PRIMARY KEY,
+  3      Emp_Firstname VARCHAR(50),
+  4      Emp_Lastname VARCHAR(50),
+  5      Emp_Sal NUMBER,
+  6      Date_Of_Birth DATE,
+  7      Gender char(1)
+  8  );
+
+Table created.
+
+SQL> INSERT INTO empl VALUES (1, 'John', 'Doe', 50000, '01-JAN-1990', 'M');
+
+1 row created.
+
+SQL> INSERT INTO empl VALUES (2, 'Jane', 'Doe', 55000, '14-FEB-1995', 'F');
+
+1 row created.
+
+SQL> INSERT INTO empl VALUES (3, 'Bob', 'Smith', 60000, '05-OCT-1987', 'M');
+
+1 row created.
+
+SQL> INSERT INTO empl VALUES (4, 'Samantha', 'Jones', 65000, '15-DEC-1984', 'F');
+
+1 row created.
+
+SQL> INSERT INTO empl VALUES (5, 'David', 'Lee', 70000, '21-AUG-1988', 'M');
+
+1 row created.
+
+SQL> INSERT INTO empl VALUES (6, 'Mary', 'Johnson', 75000, '10-MAY-1993', 'F');
+
+1 row created.
+
+SQL> INSERT INTO empl VALUES (7, 'Tom', 'Williams', 80000, '30-JUN-1985', 'M');
+
+1 row created.
+
+SQL> INSERT INTO empl VALUES (8, 'Megan', 'Taylor', 85000, '20-APR-1992', 'F');
+
+1 row created.
+
+SQL> INSERT INTO empl VALUES (9, 'Michael', 'Brown', 90000, '27-NOV-1989', 'M');
+
+1 row created.
+
+SQL> INSERT INTO empl VALUES (10, 'Emily', 'Davis', 95000, '03-SEP-1991', 'F');
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> SELECT INITCAP(Emp_Lastname) || ', ' || INITCAP(Emp_Firstname) AS "empl Name",
+  2         TO_CHAR(Emp_Sal, '$999,999.99') AS "Salary"
+  3  FROM empl;
+
+empl Name                         Salary                                                                    
+----------                        ------------ 
+ Doe, John                        $50,000.00                                                                    
+ Doe, Jane                        $55,000.00                                                                    
+ Smith, Bob                       $60,000.00                                                                    
+ Jones, Samantha                  $65,000.00                                                                    
+ Lee, David                       $70,000.00                                                                    
+ Johnson, Mary                    $75,000.00                                                                                                                                       
+Williams, Tom                    $80,000.00                                                                    
+Taylor, Megan                   $85,000.00                                                                    
+Brown, Michael                  $90,000.00                                                                                                                                       
+Davis, Emily                    $95,000.00                                                                    
+                                                                                
+
+10 rows selected.
+
+SQL> SELECT Emp_Firstname, TO_CHAR(Date_Of_Birth, 'DD MONTH, YYYY') AS "Birth Date"
+  2  FROM empl;
+
++----------------+-------------------+
+| EMP_FIRSTNAME  |     Birth Date    |
++----------------+-------------------+
+| John           | 01 JANUARY, 1990  |
+| Jane           | 14 FEBRUARY, 1995 |
+| Bob            | 05 OCTOBER, 1987  |
+| Samantha       | 15 DECEMBER, 1984 |
+| David          | 21 AUGUST, 1988   |
+| Mary           | 10 MAY, 1993      |
+| Tom            | 30 JUNE, 1985     |
+| Megan          | 20 APRIL, 1992    |
+| Michael        | 27 NOVEMBER, 1989 |
+| Emily          | 03 SEPTEMBER, 1991|
++----------------+-------------------+                                                          
+                                                                                
+
+10 rows selected.
+
+SQL> SELECT EXTRACT(YEAR FROM Date_Of_Birth) AS "Birth Year"
+  2  FROM empl;
+
+Birth Year                                                                      
+----------                                                                      
+      1990                                                                      
+      1995                                                                      
+      1987                                                                      
+      1984                                                                      
+      1988                                                                      
+      1993                                                                      
+      1985                                                                      
+      1992                                                                      
+      1989                                                                      
+      1991                                                                      
+
+10 rows selected.
+
+SQL> SELECT TRUNC(MONTHS_BETWEEN(SYSDATE, Date_Of_Birth) / 12) AS "Years of Service"
+  2  FROM empl;
+
+Years of Service                                                                
+----------------                                                                
+              33                                                                
+              28                                                                
+              35                                                                
+              38                                                                
+              34                                                                
+              29                                                                
+              37                                                                
+              30                                                                
+              33                                                                
+              31                                                                
+
+10 rows selected.
+
+SQL> SELECT Emp_Firstname, Emp_Lastname
+  2  FROM empl
+  3  WHERE EXTRACT(MONTH FROM Date_Of_Birth) = 5;
+
+EMP_FIRSTNAME                                                                   
+--------------------------------------------------                              
+EMP_LASTNAME                                                                    
+--------------------------------------------------                              
+Mary                                                                            
+Johnson                                                                         
+                                                                                
+
+SQL> SELECT Emp_Firstname || ' ' || Emp_Lastname AS "empl Name",
+  2         CASE
+  3             WHEN Emp_Sal > 100000 THEN 'HIGH'
+  4             WHEN Emp_Sal BETWEEN 50000 AND 100000 THEN 'MEDIUM'
+  5             ELSE 'LOW'
+  6         END AS "Salary"
+  7  FROM empl;
+
++------------------+-------------+
+|    emp_name      |   salary    |
++------------------+-------------+
+|    John Doe      |    MEDIUM   |
+|    Jane Doe      |    MEDIUM   |
+|    Bob Smith     |    MEDIUM   |
+|  Samantha Jones  |    MEDIUM   |
+|     David Lee    |    MEDIUM   |
+|   Mary Johnson   |    MEDIUM   |
+|   Tom Williams   |    MEDIUM   |
+|   Megan Taylor   |    MEDIUM   |
+|   Michael Brown  |    MEDIUM   |
+|    Emily Davis   |    MEDIUM   |
++------------------+-------------+
+                                                                               
+
+10 rows selected.
+
+SQL> SELECT UPPER(Emp_Firstname) AS "First Name", LOWER(Emp_Lastname) AS "Last Name"
+  2  FROM empl;
+
+First Name  |  Last Name  |  Salary
+------------------------------------
+John        |  Doe        |  MEDIUM
+Jane        |  Doe        |  MEDIUM
+Bob         |  Smith      |  MEDIUM
+Samantha    |  Jones      |  MEDIUM
+David       |  Lee        |  MEDIUM
+Mary        |  Johnson    |  MEDIUM
+Tom         |  Williams   |  MEDIUM
+Megan       |  Taylor     |  MEDIUM
+Michael     |  Brown      |  MEDIUM
+Emily       |  Davis      |  MEDIUM
+                                                                          
+
+10 rows selected.
+
+SQL> SELECT Emp_Lastname, LENGTH(Emp_Lastname) AS "Length of Last Name",
+  2         REVERSE(Emp_Firstname) AS "Reverse of First Name"
+  3  FROM empl;
+
++---------------+-----------------------+-----------------------+
+| EMP_LASTNAME  | Length of Last Name    | Reverse of First Name |
++---------------+-----------------------+-----------------------+
+| Doe           | 3                     | nhoJ                  |
+| Doe           | 3                     | enaJ                  |
+| Smith         | 5                     | boB                   |
+| Jones         | 5                     | ahtnamaS              |
+| Lee           | 3                     | divaD                 |
+| Johnson       | 7                     | yraM                  |
+| Williams      | 8                     | moT                   |
+| Taylor        | 6                     | gaeM                  |
+| Brown         | 5                     | leahciM               |
+| Davis         | 5                     | ylimE                 |
++---------------+-----------------------+-----------------------+                                                                         
+                                                                                
+
+10 rows selected.
+
+SQL> SELECT Emp_Firstname || ' ' || Emp_Lastname AS "empl Name"
+  2  FROM empl;
+
+empl Name                                                                       
+--------------------------------------------------------------------------------
+John Doe                                                                        
+Jane Doe                                                                        
+Bob Smith                                                                       
+Samantha Jones                                                                  
+David Lee                                                                       
+Mary Johnson                                                                    
+Tom Williams                                                                    
+Megan Taylor                                                                    
+Michael Brown                                                                   
+Emily Davis                                                                     
+
+10 rows selected.
+
+SQL> SELECT ABS(-10) AS "Absolute Value", CEIL(10.5) AS "Ceiling", 10 AS "Constant",
+  2         FLOOR(10.5) AS "Floor", MOD(10, 3) AS "Modulus", GREATEST(10, 20, 30) AS "Greatest",
+  3         ROUND(10.5) AS "Round", SQRT(100) AS "Square Root"
+  4  FROM DUAL;
+
+Absolute Value    Ceiling   Constant      Floor    Modulus   Greatest      Round   Square Root 
+-------------- ---------- ---------- ---------- ---------- ---------- ----------   -----------                                                        
+            10         11         10         10          1         30         11            10                                                                     
+                                                                                
+
+
+SQL> 
+SQL> SELECT ASCII('A') AS "ASCII Value", INSTR('John Doe', 'Doe') AS "Position",
+  2         LPAD('Doe', 10, 'X') AS "Left Padding", RPAD('Doe', 30, 'DoeDoe') AS "Right Padding",
+  3         TRIM('Doe') AS "Trim", DECODE('Doe', 'Doe', 0, 1) AS "Compare",
+  4         SUBSTR('John Doe', 6, 3) AS "Substring", RPAD('Doe', 15, 'Doe') AS "Repeat"
+  5  FROM DUAL;
+
+ASCII Value   Position Left Paddi Right Padding                  Tri    Compare   Sub Repeat  
+----------- ---------- ---------- ------------------------------ --- ----------   --- ---------------                                                                    
+                                                            
+         65          6 XXXXXXXDoe DoeDoeDoeDoeDoeDoeDoeDoeDoeDoe Doe          0   Doe DoeDoeDoeDoeDoe
+                                                             
+                                                                                
+
+SQL> SELECT SYSDATE AS "Current Date", ADD_MONTHS(SYSDATE, 3) AS "Add 3 Months",
+  2         LAST_DAY(SYSDATE) AS "Last Day of Month", MONTHS_BETWEEN(SYSDATE, SYSDATE) AS "Months Between",
+  3         NEXT_DAY(SYSDATE, 'MONDAY') AS "Next Monday"
+  4  FROM DUAL;
+
+Current D Add 3 Mon Last Day  Months Between Next Mond                          
+--------- --------- --------- -------------- ---------                          
+27-FEB-23 27-MAY-23 28-FEB-23              0 06-MAR-23     
+
+                                                                                
+
+SQL> SELECT Emp_Firstname, Emp_Lastname, TO_CHAR(Date_Of_Birth, 'DD MONTH, YYYY') AS "Birth Date"
+  2  FROM empl
+  3  WHERE Date_Of_Birth = (SELECT MAX(Date_Of_Birth) FROM empl);
+
+EMP_FIRSTNAME     EMP_LASTNAME    Birth Date                                                                  
+----------------  -------------   -------------                       
+Jane               Doe            14 FEBRUARY , 1995                                                              

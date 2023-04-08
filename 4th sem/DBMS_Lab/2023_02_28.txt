@@ -1,0 +1,216 @@
+SQL> CREATE TABLE p(
+  2  pid int primary key,
+  3  pname varchar(15),
+  4  price int,
+  5  qty int);
+
+Table created.
+
+SQL> INSERT INTO PRODUCTS VALUES (101, 'SOAP', 32, 2);
+INSERT INTO PRODUCTS VALUES (101, 'SOAP', 32, 2)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO PRODUCTS VALUES (102, 'RICE', 42, 7);
+INSERT INTO PRODUCTS VALUES (102, 'RICE', 42, 7)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO PRODUCTS VALUES (103, 'RICE', 45, 9);
+INSERT INTO PRODUCTS VALUES (103, 'RICE', 45, 9)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO PRODUCTS VALUES (104, 'PASTE', 33, 5);
+INSERT INTO PRODUCTS VALUES (104, 'PASTE', 33, 5)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO PRODUCTS VALUES (105, 'MILK', 25, 3);
+INSERT INTO PRODUCTS VALUES (105, 'MILK', 25, 3)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO PRODUCTS VALUES (106, 'RICE', 43, 2);
+INSERT INTO PRODUCTS VALUES (106, 'RICE', 43, 2)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO PRODUCTS VALUES (107, 'OIL', 78, 7);
+INSERT INTO PRODUCTS VALUES (107, 'OIL', 78, 7)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO PRODUCTS VALUES (108, 'PASTE', 32, 5);
+INSERT INTO PRODUCTS VALUES (108, 'PASTE', 32, 5)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO PRODUCTS VALUES (109, 'RICE', 41, 4);
+INSERT INTO PRODUCTS VALUES (109, 'RICE', 41, 4)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO PRODUCTS VALUES (110, 'SOAP', 31, 3);
+INSERT INTO PRODUCTS VALUES (110, 'SOAP', 31, 3)
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> 
+SQL> INSERT INTO p VALUES (101, 'SOAP', 32, 2);
+
+1 row created.
+
+SQL> INSERT INTO p VALUES (102, 'RICE', 42, 7);
+
+1 row created.
+
+SQL> INSERT INTO p VALUES (103, 'RICE', 45, 9);
+
+1 row created.
+
+SQL> INSERT INTO p VALUES (104, 'PASTE', 33, 5);
+
+1 row created.
+
+SQL> INSERT INTO p VALUES (105, 'MILK', 25, 3);
+
+1 row created.
+
+SQL> INSERT INTO p VALUES (106, 'RICE', 43, 2);
+
+1 row created.
+
+SQL> INSERT INTO p VALUES (107, 'OIL', 78, 7);
+
+1 row created.
+
+SQL> INSERT INTO p VALUES (108, 'PASTE', 32, 5);
+
+1 row created.
+
+SQL> INSERT INTO p VALUES (109, 'RICE', 41, 4);
+
+1 row created.
+
+SQL> INSERT INTO p VALUES (110, 'SOAP', 31, 3);
+
+1 row created.
+
+SQL> 
+SQL> select count(distinct pname) from p;
+
+COUNT(DISTINCTPNAME)                                                            
+--------------------                                                            
+                   5                                                            
+
+SQL> select pname, count(pname)
+  2  from p
+  3  group by pname;
+
+PNAME           COUNT(PNAME)                                                    
+--------------- ------------                                                    
+SOAP                       2                                                    
+MILK                       1                                                    
+OIL                        1                                                    
+RICE                       4                                                    
+PASTE                      2                                                    
+
+SQL> select pname, sum(qty)
+  2  from p
+  3  group by pname;
+
+PNAME             SUM(QTY)                                                      
+--------------- ----------                                                      
+SOAP                     5                                                      
+MILK                     3                                                      
+OIL                      7                                                      
+RICE                    22                                                      
+PASTE                   10                                                      
+
+SQL> select pname, max(price), max(quantity)
+  2  from p
+  3  group by pname;
+select pname, max(price), max(quantity)
+                              *
+ERROR at line 1:
+ORA-00904: "QUANTITY": invalid identifier 
+
+
+SQL> select pname, max(price), max(qty)
+  2  from p
+  3  group by pname;
+
+PNAME           MAX(PRICE)   MAX(QTY)                                           
+--------------- ---------- ----------                                           
+SOAP                    32          3                                           
+MILK                    25          3                                           
+OIL                     78          7                                           
+RICE                    45          9                                           
+PASTE                   33          5                                           
+
+SQL> select pname, avg(qty)
+  2  from p
+  3  where avg(qty) > 30
+  4  group by pname;
+where avg(qty) > 30
+      *
+ERROR at line 3:
+ORA-00934: group function is not allowed here 
+
+
+SQL> select pname, avg(qty)
+  2  from p
+  3  group by pname;
+
+PNAME             AVG(QTY)                                                      
+--------------- ----------                                                      
+SOAP                   2.5                                                      
+MILK                     3                                                      
+OIL                      7                                                      
+RICE                   5.5                                                      
+PASTE                    5                                                      
+
+SQL> select pname, avg(price)
+  2  from p
+  3  group by pname;
+
+PNAME           AVG(PRICE)                                                      
+--------------- ----------                                                      
+SOAP                  31.5                                                      
+MILK                    25                                                      
+OIL                     78                                                      
+RICE                 42.75                                                      
+PASTE                 32.5                                                      
+
+SQL> create user XYZ identified by 123;
+
+User created.
+
+SQL> grant select on p to XYZ;
+
+Grant succeeded.
+
+SQL> save file.sql
+Created file .sql
+SQL> spool off;

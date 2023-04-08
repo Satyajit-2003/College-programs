@@ -1,0 +1,94 @@
+SQL> CREATE TABLE position(
+  2  posid int primary key,
+  3  posdesc varchar(20));
+
+Table created.
+
+SQL> CREATE TABLE qualification(
+  2  qualid int primary key,
+  3  qualdesc varchar(20));
+
+Table created.
+
+SQL> CREATE TABLE emplevel(
+  2  levelno int primary key,
+  3  lowsalary int,
+  4  highsalary int);
+
+Table created.
+
+SQL> CREATE TABLE dept(
+  2  deptid int primary key,
+  3  deptname varchar(10),
+  4  location varchar(10));
+
+Table created.
+
+SQL> CREATE TABLE employee(
+  2  empid int primary key,
+  3  lname varchar(10),
+  4  fname varchar(10),
+  5  posid int references position(posid),
+  6  supervisor varchar(10),
+  7  hiredate date,
+  8  salary int,
+  9  commission int,
+ 10  deptid int references dept(deptid),
+ 11  qualid int references qualification(qualid));
+
+Table created.
+
+SQL> CREATE TABLE dependent(
+  2  depdid int primary key,
+  3  empid int references employee(empid),
+  4  depdob date,
+  5  relation varchar(10));
+
+Table created.
+
+SQL> ALTER TABLE dept
+  2  ADD empid int references employee(empid);
+
+Table altered.
+
+
+SQL> select lname||','||fname as name,salary from employee;
+
+NAME                      SALARY                                                
+--------------------- ----------                                                
+Johnson,David              70000                                                
+Miller,Sarah               80000                                                
+
+SQL> select * from employee where commission is null;
+
+no rows selected
+
+SQL> select distinct location from dept;
+
+LOCATION                                                                        
+----------                                                                      
+Mumbai                                                                          
+Pune                                                                            
+
+SQL> select * from employee where posid=2 and deptid=2;
+
+     EMPID LNAME      FNAME           POSID SUPERVISOR HIREDATE      SALARY   COMMISSION     DEPTID     QUALID    
+---------- ---------- ---------- ---------- ---------- --------- ----------   ---------- ---------- ----------  
+         4 Miller     Sarah               2 1          01-APR-21      80000            0          2          2                                                
+                                                                                
+
+SQL> select * from employee where fname like 'S%' and lname like '%a';
+
+no rows selected
+
+SQL> select * from employee where hiredate between '01-jan-2018' and '31-dec-2022';
+
+     EMPID LNAME      FNAME           POSID SUPERVISOR HIREDATE      SALARY     COMMISSION     DEPTID     QUALID 
+---------- ---------- ---------- ---------- ---------- --------- ----------     ---------- ---------- ----------   
+                                               
+         3 Johnson    David               3 1          01-MAR-18      70000           8000          2          3                                                                                                                             
+         4 Miller     Sarah               2 1          01-APR-21      80000              0          2          2                                                
+                                                                                
+
+
+

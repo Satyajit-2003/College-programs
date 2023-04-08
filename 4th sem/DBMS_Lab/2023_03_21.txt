@@ -1,0 +1,97 @@
+SQL> CREATE TABLE std_mar21(
+  2  roll primary key,
+  3  name varchar(10),
+  4  address varchar(10));
+roll primary key,
+*
+ERROR at line 2:
+ORA-02263: need to specify the datatype for this column 
+
+
+SQL> CREATE TABLE std_mar21(
+  2  roll int primary key,
+  3  name varchar(10),
+  4  address varchar(10));
+
+Table created.
+
+SQL> insert into std_mar21 values(101, 'Sushil', 'bbsr');
+
+1 row created.
+
+SQL> insert into std_mar21 values(102, 'Amrit', 'ctc');
+
+1 row created.
+
+SQL> insert into std_mar21 values(103, 'Vikas', 'bbsr');
+
+1 row created.
+
+SQL> insert into std_mar21 values(104, 'Rahul', 'delhi');
+
+1 row created.
+
+SQL> insert into std_mar21 values(105, 'Jiten', 'mumbai');
+
+1 row created.
+
+SQL> insert into std_mar21 values(106, 'Ajay', 'ctc');
+
+1 row created.
+
+SQL> create table book_mar21(
+  2  num int primary key,
+  3  name varchar(10),
+  4  roll int references std_mar21(roll));
+
+Table created.
+
+SQL> insert into book_mar21 values(11, 'java', 102);
+
+1 row created.
+
+SQL> insert into book_mar21 values(22, 'c', 105);
+
+1 row created.
+
+SQL> insert into book_mar21 values(33, 'oracle', 102);
+
+1 row created.
+
+SQL> insert into book_mar21 values(44, 'c++', NULL);
+
+1 row created.
+
+SQL> insert into book_mar21 values(55, 'os', 103);
+
+1 row created.
+
+SQL> insert into book_mar21 values(66, 'cn', NULL);
+
+1 row created.
+
+SQL> select s.name, b.name from stud_mar21 s, book_mar21 b
+  2  where s.roll=b.roll;
+select s.name, b.name from stud_mar21 s, book_mar21 b
+                           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select s.name, b.name from std_mar21 s, book_mar21 b
+  2  where s.roll=b.roll;
+
+NAME       NAME                                                                 
+---------- ----------                                                           
+Amrit      java                                                                 
+Jiten      c                                                                    
+Amrit      oracle                                                               
+Vikas      os                                                                   
+
+SQL> commitl
+SP2-0042: unknown command "commitl" - rest of line ignored.
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;

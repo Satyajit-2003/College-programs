@@ -1,10 +1,124 @@
-SQL> desc stud;
- Name                                      Null?    Type
- ----------------------------------------- -------- ----------------------------
- ROLLNO                                    NOT NULL NUMBER(38)
- NAME                                               VARCHAR2(10)
- SECTION                                            VARCHAR2(5)
- CGPA                                               NUMBER(3,1)
- GENDER                                             CHAR(1)
+SQL> CREATE TABLE stud(
+  2  rollno int primary key,
+  3  name varchar(20),
+  4  section varchar(5),
+  5  cgpa float,
+  6  gender char(1));
 
-SQL> spool D:\a.txt
+Table created.
+
+SQL> CREATE TABLE product(
+  2  pid int primary key,
+  3  pname varchar(20),
+  4  price int,
+  5  quantity  int,
+  6  order_date date);
+
+Table created.
+
+SQL> CREATE TABLE book(
+  2  bid int primary key,
+  3  bname varchar(20),
+  4  aname varchar(10),
+  5  price int,
+  6  date_of_issue date);
+
+Table created.
+
+SQL>
+SQL>
+SQL> INSERT INTO stud VALUES (1, 'John Doe', 'A', 8.5, 'M');
+
+1 row created.
+
+SQL> INSERT INTO stud VALUES (2, 'Jane Doe', 'B', 9.0, 'F');
+
+1 row created.
+
+SQL> INSERT INTO stud VALUES (3, 'Tom Cruise', 'C', 7.8, 'M');
+
+1 row created.
+
+SQL> INSERT INTO stud VALUES (4, 'Emma Watson', 'D', 8.9, 'F');
+
+1 row created.
+
+SQL> INSERT INTO stud VALUES (5, 'Brad Pitt', 'E', 8.1, 'M');
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO product VALUES (1, 'Product 1', 100, 10, '30-Jan-2023');
+
+1 row created.
+
+SQL> INSERT INTO product VALUES (2, 'Product 2', 150, 5, '25-Jan-2023');
+
+1 row created.
+
+SQL> INSERT INTO product VALUES (3, 'Product 3', 200, 15, '28-Jan-2023');
+
+1 row created.
+
+SQL> INSERT INTO product VALUES (4, 'Product 4', 250, 20, '29-Jan-2023');
+
+1 row created.
+
+SQL> INSERT INTO product VALUES (5, 'Product 5', 300, 25, '27-Jan-2023');
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> INSERT INTO book VALUES (1, 'Book 1', 'Author 1', 50, '30-Jan-2023');
+
+1 row created.
+
+SQL> INSERT INTO book VALUES (2, 'Book 2', 'Author 2', 60, '25-Jan-2023');
+
+1 row created.
+
+SQL> INSERT INTO book VALUES (3, 'Book 3', 'Author 3', 70, '28-Jan-2023');
+
+1 row created.
+
+SQL> INSERT INTO book VALUES (4, 'Book 4', 'Author 4', 80, '29-Jan-2023');
+
+1 row created.
+
+SQL> INSERT INTO book VALUES (5, 'Book 5', 'Author 5', 90, '27-Jan-2023');
+
+1 row created.
+
+SQL> select * from stud;
+
+    ROLLNO NAME                 SECTI       CGPA G                              
+---------- -------------------- ----- ---------- -                              
+         1 John Doe             A            8.5 M                              
+         2 Jane Doe             B              9 F                              
+         3 Tom Cruise           C            7.8 M                              
+         4 Emma Watson          D            8.9 F                              
+         5 Brad Pitt            E            8.1 M                              
+
+SQL> select * from product;
+
+       PID PNAME                     PRICE   QUANTITY ORDER_DAT                 
+---------- -------------------- ---------- ---------- ---------                 
+         1 Product 1                   100         10 30-JAN-23                 
+         2 Product 2                   150          5 25-JAN-23                 
+         3 Product 3                   200         15 28-JAN-23                 
+         4 Product 4                   250         20 29-JAN-23                 
+         5 Product 5                   300         25 27-JAN-23                 
+
+SQL> select * from book;
+
+       BID BNAME                ANAME           PRICE DATE_OF_I                 
+---------- -------------------- ---------- ---------- ---------                 
+         1 Book 1               Author 1           50 30-JAN-23                 
+         2 Book 2               Author 2           60 25-JAN-23                 
+         3 Book 3               Author 3           70 28-JAN-23                 
+         4 Book 4               Author 4           80 29-JAN-23                 
+         5 Book 5               Author 5           90 27-JAN-23                 

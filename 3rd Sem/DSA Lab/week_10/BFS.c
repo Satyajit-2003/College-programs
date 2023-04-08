@@ -1,137 +1,94 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct sta{
-    int data;
-    struct sta* next;
-} adj;
+#define MAX_VERTICES 100
 
-typedef struct st{
-    int data;
-    adj* next;
-} vertex;
+// Define node structure for adjacency list
+struct node {
+    int vertex;
+    struct node* next;
+};
 
-typedef struct queu{
-    int data[50];
-    int front;
-    int rear;
-} queue;
+// Define graph structure
+struct Graph {
+    int num_vertices;
+    struct node* adj_list[MAX_VERTICES];
+};
 
-void enqueue(queue* q, int data){
-    if (q->rear == 49){
-        printf("Queue is full");
-        return;
-    }
-    q->rear++;
-    q->data[q->rear] = data;
+// Create new node in adjacency list
+struct node* create_node(int v) {
+    struct node* new_node = (struct node*) malloc(sizeof(struct node));
+    new_node->vertex = v;
+    new_node->next = NULL;
+    return new_node;
 }
 
-int dequeue(queue* q){
-    if (q->front == q->rear){
-        printf("Queue is empty");
-        return -1;
-    }
-    q->front++;
-    return q->data[q->front];
+// Add edge to graph
+void add_edge(struct Graph* graph, int src, int dest) {
+    struct node* new_node = create_node(dest);
+    new_node->next = graph->adj_list[src];
+    graph->adj_list[src] = new_node;
 }
 
+// Breadth First Search algorithm
+void BFS(struct Graph* graph, int start, int visited[]) {
+    int queue[MAX_VERTICES];
+    int front = -1, rear = -1;
 
-vertex* create_graph(int no_of_vertex){
-    int temp;
-    vertex* graph = (vertex *) malloc(no_of_vertex * sizeof(vertex));
-    for (int i = 0; i < no_of_vertex; i++){
-        // printf("Enter %d vertex: ", i+1);
-        // scanf("%d", &graph[i].data);
-        graph[i].data = i+1;
-        graph[i].next = NULL;
-    }
-    for (int i = 0; i < no_of_vertex; i++){
-        for (int j = 0; j < no_of_vertex; j++){
-            if (i != j){
-                // printf("Is %d is connected to %d: ", graph[i].data, graph[j].data);
-                // scanf("%d", &temp);
-                temp = rand() % 2;
-                if (temp){
-                    if (! graph[i].next){
-                        graph[i].next = (adj *)malloc(sizeof(adj));
-                        graph[i].next->data = graph[j].data;
-                        graph[i].next->next = NULL;
-                    }
-                    else{
-                        adj* next_ele = graph[i].next;
-                        while (next_ele->next){
-                            next_ele = next_ele->next;
-                        }
-                        next_ele->next = (adj *)malloc(sizeof(adj));
-                        next_ele->next->data = graph[j].data;
-                        next_ele->next->next = NULL;                        
-                    }                    
-                }
-            }
-        }
-    }
-    return graph;
-}
-
-void display(vertex* graph, int length){
-    printf("\t");
-    for (int i = 0; i < length; i++){
-        printf("%d\t", graph[i].data);
-    }printf("\n");
-    for (int i = 0; i < length; i++){
-        printf("%d\t", graph[i].data);
-        adj* temp = graph[i].next;
-        for (int j = 0; j < length; j++){
-            if (i == j){
-                printf("-1\t");
-                continue;
-            }
-            if (temp->data == graph[j].data){
-                printf("1\t");
-                if (temp->next)
-                    temp = temp->next;
-            }else{
-                printf("0\t");
-            }
-        }
-        printf("\n");
-    }
-}
-
-void bfs(vertex* graph, int length, int start){
-    int visited[length];
-    for (int i = 0; i < length; i++){
-        visited[i] = 0;
-    }
-    queue q;
-    q.front = -1;
-    q.rear = -1;
-    enqueue(&q, start);
     visited[start] = 1;
-    while (q.front != q.rear){
-        int temp = dequeue(&q);
-        printf("%d ", graph[temp].data);
-        adj* temp_adj = graph[temp].next;
-        while (temp_adj){
-            if (! visited[temp_adj->data]){
-                enqueue(&q, temp_adj->data);
-                visited[temp_adj->data] = 1;
+    queue[++rear] = start;
+
+    while (front != rear) {
+        int current_vertex = queue[++front];
+        printf("%d ", current_vertex);
+
+        struct node* adj_list = graph->adj_list[current_vertex];
+
+        while (adj_list != NULL) {
+            int adj_vertex = adj_list->vertex;
+            if (!visited[adj_vertex]) {
+                visited[adj_vertex] = 1;
+                queue[++rear] = adj_vertex;
             }
-            temp_adj = temp_adj->next;
+            adj_list = adj_list->next;
         }
     }
 }
 
-int main(){
-    int no_of_vertex;
-    printf("Enter no of vertex: ");
-    scanf("%d", &no_of_vertex);
-    vertex* graph = create_graph(no_of_vertex);
-    display(graph, no_of_vertex);
-    int start;
-    printf("Enter start vertex: ");
-    scanf("%d", &start);
-    bfs(graph, no_of_vertex, start);
+// Main function
+int main() {
+    int num_vertices, num_edges;
+    printf("Enter the number of vertices: ");
+    scanf("%d", &num_vertices);
+
+    struct Graph* graph = (struct Graph*) malloc(sizeof(struct Graph));
+    graph->num_vertices = num_vertices;
+
+    // Initialize adjacency list
+    for (int i = 0; i < num_vertices; i++) {
+        graph->adj_list[i] = NULL;
+    }
+
+    // Add edges to graph
+    printf("Enter the number of edges: ");
+    scanf("%d", &num_edges);
+
+    for (int i = 0; i < num_edges; i++) {
+        int src, dest;
+        printf("Enter edge %d: ", i + 1);
+        scanf("%d %d", &src, &dest);
+        add_edge(graph, src, dest);
+    }
+
+    // Perform BFS
+    int visited[MAX_VERTICES] = {0};
+    printf("BFS of graph: ");
+    for (int i = 0; i < num_vertices; i++) {
+        if (!visited[i]) {
+            BFS(graph, i, visited);
+        }
+    }
+    printf("\n");
+
     return 0;
 }

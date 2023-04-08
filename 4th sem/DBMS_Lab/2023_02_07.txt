@@ -1,0 +1,103 @@
+SQL> CREATE table student_details(
+  2  roll_no int,
+  3  name varchar(10),
+  4  gender char(1),
+  5  age int,
+  6  branch varchar(5),
+  7  cgpa float,
+  8  city varchar(15),
+  9  grade char(1));
+
+Table created.
+
+SQL> desc student_details
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL_NO                                            NUMBER(38)
+ NAME                                               VARCHAR2(10)
+ GENDER                                             CHAR(1)
+ AGE                                                NUMBER(38)
+ BRANCH                                             VARCHAR2(5)
+ CGPA                                               FLOAT(126)
+ CITY                                               VARCHAR2(15)
+ GRADE                                              CHAR(1)
+
+SQL> INSERT INTO student_details VALUES (1001, 'ARUN', 'M', 22, 'IT', 75.61, 'MUMBAI', 'A');
+
+1 row created.
+
+SQL> INSERT INTO student_details VALUES (1006, 'ASKSAY', 'M', 22, 'IT', 66.41, 'MUMBAI', 'B');
+
+1 row created.
+
+SQL> INSERT INTO student_details VALUES (1003, 'REKHA', 'F', 25, 'CSE', 77.00, 'KOLKATA', 'D');
+
+1 row created.
+
+SQL> INSERT INTO student_details VALUES (1004, 'RASHMI', 'F', 26, 'CIVIL', 77.61, 'NEWDELHI', 'C');
+
+1 row created.
+
+SQL> INSERT INTO student_details VALUES (1001, 'ANU', 'F', 28, 'ETC', 81.67, 'BHUBANESWAR', 'E');
+
+1 row created.
+
+SQL> INSERT INTO student_details VALUES (1010, 'ANSUMAN', 'M', 30, 'MECH', 84.61, 'HYDERABAD', 'O');
+
+1 row created.
+
+SQL> select name from student_details where roll_no = 1006;
+
+NAME                                                                            
+----------                                                                      
+ASKSAY                                                                          
+
+SQL> delete from student_details where name = 'ARUN';
+
+1 row deleted.
+
+SQL> select name from student_details where name like 'A%';
+
+NAME                                                                            
+----------                                                                      
+ASKSAY                                                                          
+ANU                                                                             
+ANSUMAN                                                                         
+
+
+SQL> select name,roll_no from student_details where age > 25;
+
+NAME          ROLL_NO                                                           
+---------- ----------                                                           
+RASHMI           1004                                                           
+ANU              1001                                                           
+ANSUMAN          1010                                                           
+
+
+SQL> select name, city from student_details where cgpa between 60 and 70;
+
+NAME       CITY                                                                 
+---------- ---------------                                                      
+ASKSAY     MUMBAI                                                               
+
+SQL> select name, grade from student_details where branch in ('IT', 'CSE');
+
+NAME       G                                                                    
+---------- -                                                                    
+ASKSAY     B                                                                    
+REKHA      D                                                                    
+
+SQL> select * from student_details where city like '%U%';
+
+   ROLL_NO NAME       G        AGE BRANC       CGPA CITY            G           
+---------- ---------- - ---------- ----- ---------- --------------- -           
+      1006 ASKSAY     M         22 IT         66.41 MUMBAI          B           
+      1001 ANU        F         28 ETC        81.67 BHUBANESWAR     E           
+
+SQL> select name, gender, cgpa from student_details where city = 'MUMBAI';
+
+NAME       G       CGPA                                                         
+---------- - ----------                                                         
+ASKSAY     M      66.41                                                         
+
+SQL> spool off;
