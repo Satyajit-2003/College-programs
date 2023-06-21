@@ -12,11 +12,9 @@ employee working for SALES dept or OPERATIONS dept joined in 89.
 9. List the most senior emp working under KING and Grade is more than 3.
 10. List the details of the dept where the max no of emps are working
 11. Display the emps whose Mgr name is Jones.
-12. List the name, job, dname, Manager, salary, Grade dept wise.
-13. List the names of emps who are getting the highest salary dept wise
-14. List the emps whose salary is equal to average of maximum and minimum.
-15. List the name, sal, comm. For those emps whose net pay is > or = any other employee salary of
-the company.*/
+*/
+
+drop table employees_04_04;
 
 CREATE TABLE employees_04_04 (
   empno NUMBER(4) PRIMARY KEY,
@@ -79,7 +77,11 @@ where hiredate = (select max(hiredate) from employees_04_04 where grade = 3 and 
 
 --q8
 select * from employees_04_04 
-where hiredate = (select max(hiredate) from employees_04_04 where job = (select job from employees_04_04 where hiredate = (select min(hiredate) from employees_04_04 where year(hiredate) = 1981)));
+where hiredate = (select max(hiredate) from employees_04_04 
+where job = (select job from employees_04_04 
+            where hiredate = 
+              (select min(hiredate) from employees_04_04 
+              where TO_CHAR(hiredate, 'YYYY') = 1981)));
 
  --q9
 select * from employees_04_04 
@@ -99,7 +101,3 @@ WHERE deptno = (SELECT deptno FROM (
 --q11
 SELECT ename, mgr FROM EMPLOYEES_04_04 
 WHERE mgr = (SELECT empno FROM EMPLOYEES_04_04 WHERE ename = 'JONES');
-
---q12
-
---q13

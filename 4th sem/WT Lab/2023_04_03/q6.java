@@ -8,13 +8,12 @@ public class q6{
     public static void main(String[] args) {
         String s = "welcome to Java Programming";
         String s1 = "hello world";
-        String s2 = "hello";
-        String s3 = "good morning";
 
         System.out.println(s.concat(s1));
         System.out.println(s1.isEmpty());
         String[] arr = s.split(" ");
-        System.out.println(arr.toString());
+        for(String i: arr)
+            System.out.println(i);
         System.out.println(s.trim());
         System.out.println(s.toUpperCase());
         System.out.println(s.toLowerCase());

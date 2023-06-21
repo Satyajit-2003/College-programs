@@ -1,54 +1,48 @@
-import java.io.*;
-class Main {
-    // Copying an array
-    // public static void main(String[] args) {
-    //     char[] arr1 = { 'd','e','c','a','f','f','e','i','n','a','t','e','d' };
-    //     char[] arr2 = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
-    //     System.arraycopy(arr1, 5, arr2, 2, 4);
-    //     System.out.println(new String(arr2));
-    // }
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] res = new int[2];
+        int start = 0;
+        int end = nums.length-1;
+        int mid;
+        int index = -1;
+        while (start <= end){
+            mid = (start + end)/2;
+            if (nums[mid] == target){
+                index = mid;
+                break;
+            }else if(nums[mid] > target){
+                end = mid-1;
+            }else{
+                start = mid + 1;
+            }
+        }
+        if (index == -1){
+            return new int[]{-1,-1};
+        }
+        start = index;
+        end = index;
+        while ((start-1)>= 0 && nums[start-1] == target){
+            start--;
+        }
+        while (((end +1)< nums.length) && nums[end+1] == target){
+            end ++;
+        }
 
-    // Command Line Arguments to check prime numbers
-    // static Boolean check_prime(int num){
-    //     if (num <= 1){
-    //         return false;
-    //     }
-    //     for (int i = 2; i <= num/2; i++){
-    //         if (num%i == 0)
-    //             return false;
-    //     }
-    //     return true;
-    // }
-    // public static void main(String[] args){
-    //     if (args.length > 0){
-    //         for (String i:args){
-    //             int ans = Integer.parseInt(i);
-    //             if (check_prime(ans)){
-    //                 System.out.println(i+" is prime");                
-    //             }else{
-    //                 System.out.println(i+" is not prime");             
-    //             }
-    //         }
-    //     }
-    // }
+        return new int[]{start, end};
+    }
+}
 
-
-    //Buffer Reader
-
-    // public static void main(String []args)throws IOException{
-    //     InputStreamReader isr=new InputStreamReader(System.in);
-    //     BufferedReader br=new BufferedReader(isr);
-
-    //     System.out.print("enter your name");
-    //     String name=br.readLine();
-    //     System.out.print("enter your rollno");
-    //     int roll=Integer.parseInt(br.readLine());
-    //     System.out.print("enter your fee");
-    //     double fee =Double.parseDouble(br.readLine());
-
-    //     System.out.println("name="+name);
-    //     System.out.println("rollno="+roll);
-    //     System.out.println("Fee="+fee);
-    // }
-    
+class Main{
+    static void print(int[] li){
+        System.out.println(li[0]+" "+li[1]);
+    }
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        print(s.searchRange(new int[] {5,7,7,8,8,10}, 8));        
+        print(s.searchRange(new int[] {5,7,7,8,8,10}, 6));        
+        print(s.searchRange(new int[] {}, 0));        
+        print(s.searchRange(new int[] {1}, 1));        
+        print(s.searchRange(new int[] {2,2}, 2));        
+        print(s.searchRange(new int[] {1,3},1));        
+    }
 }

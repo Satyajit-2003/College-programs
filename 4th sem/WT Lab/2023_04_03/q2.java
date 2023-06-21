@@ -1,7 +1,7 @@
 /*Write a program to handle IOException with throws and throw concept.*/
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class q2
 {

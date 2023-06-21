@@ -1,0 +1,73 @@
+drop table book_05_02;
+drop table std_05_02;
+
+--q1
+CREATE TABLE BOOK_05_02(
+    BK_ID INT,
+    BK_NAME VARCHAR(50),
+    AUTHOR VARCHAR(50),
+    BK_PUBLISHER VARCHAR(50),
+    PAGES INT,
+    PRICE INT,
+    QUANTITY INT,
+    ROLL_NO INT
+);
+
+INSERT INTO BOOK_05_02 VALUES(1,'Secret Seven','Enid Blyton','Penguin',100,500,10,2105576);
+INSERT INTO BOOK_05_02 VALUES(2,'Famous Five','Enid Blyton','Penguin',200,600,20,2105588);
+INSERT INTO BOOK_05_02 VALUES(3,'Half Girlfriend','Chetan Bhagat','Hassle',300,700,30,2105561);
+INSERT INTO BOOK_05_02 VALUES(4,'Revolution 2020','Chetan Bhagat','Hassle',400,800,40,2105576);
+INSERT INTO BOOK_05_02 VALUES(5,'Find Outers','Enid Blyton','Penguin',500,900,50,2105588);
+
+
+--q2
+CREATE TABLE STD_05_02(
+    ROLL_NO INT,
+    NAME VARCHAR(50),
+    ADDRESS VARCHAR(50),
+    PHONE_NO INT,
+    BRANCH VARCHAR(5),
+    SECTION INT
+);
+
+INSERT INTO STD_05_02 VALUES(2105576,'Satyajit','Dhenkanal',1234567890,'CSE',27);
+INSERT INTO STD_05_02 VALUES(2105588,'Tannu','Muzaffarpur',1234567890,'CSE',27);
+INSERT INTO STD_05_02 VALUES(2105561, 'OP', 'Bbsr', 1234567890, 'CSE', 38);
+INSERT INTO STD_05_02 VALUES(2105512, 'Aaryan', 'Bhopal', 1234567890, 'CSE', 14);
+INSERT INTO STD_05_02 VALUES(2105530, 'Arunima', 'Siliguri', 1234567890, 'CSE', 14);
+
+
+--q3
+ALTER TABLE BOOK_05_02 ADD CONSTRAINT pk1 PRIMARY KEY(bk_id);
+ALTER TABLE STD_05_02 ADD CONSTRAINT pk2 PRIMARY KEY(roll_no);
+ALTER TABLE BOOK_05_02 ADD CONSTRAINT fk FOREIGN KEY(roll_no) REFERENCES STD_05_02(roll_no);
+
+--q4
+SELECT DISTINCT AUTHOR FROM BOOK_05_02;
+
+SELECT author, SUM(price * quantity) as TotalCost 
+FROM BOOK_05_02
+GROUP BY AUTHOR;
+
+SELECT DISTINCT NAME FROM BOOK_05_02, STD_05_02
+WHERE BOOK_05_02.ROLL_NO = STD_05_02.ROLL_NO;
+
+SELECT NAME FROM STD_05_02
+WHERE ROLL_NO NOT IN (SELECT ROLL_NO FROM BOOK_05_02);
+
+--PLSQL
+--q5
+set serveroutput on;
+
+declare
+    num int := &num;
+    cnt int := 0;
+begin
+    while num > 0
+    loop
+        num := num/10;
+        cnt := cnt + 1;
+    end loop;
+    dbms_output.put_line('Number of digits: ' || cnt);
+end;
+/
